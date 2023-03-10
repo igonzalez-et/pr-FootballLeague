@@ -1,0 +1,8 @@
+{% extends 'leagueApp/base.html' %}
+
+{% block content %}
+<h1>Resultats</h1>
+{% for match in matches %}
+<p>{{ match.home_team }} {{ match.home_score }} - {{ match.away_score }} {{ match.away_team }}</p>
+{% endfor %}
+{% endblock %}

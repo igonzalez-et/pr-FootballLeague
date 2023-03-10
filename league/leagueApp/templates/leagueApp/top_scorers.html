@@ -1,0 +1,23 @@
+{% extends 'leagueApp/base.html' %}
+
+{% block content %}
+<h1>Pichichis</h1>
+<table>
+<thead>
+<tr>
+<th>Jugador</th>
+<th>Equip</th>
+<th>Gols</th>
+</tr>
+</thead>
+<tbody>
+{% for player in players %}
+<tr>
+<td>{{ player.player__name }}</td>
+<td>{{ player.player__team__name }}</td>
+<td>{{ player.num_goals }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
