@@ -13,9 +13,9 @@
 <tbody>
 {% for player in players %}
 <tr>
-<td>{{ player.player__name }}</td>
-<td>{{ player.player__team__name }}</td>
-<td>{{ player.num_goals }}</td>
+<td class="left">{{ player.name }}</td>
+<td class="left">{{ player.team }}</td>
+<td>{{ player.goals }}</td>
 </tr>
 {% endfor %}
 </tbody>

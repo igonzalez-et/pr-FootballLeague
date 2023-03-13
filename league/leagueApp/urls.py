@@ -5,8 +5,7 @@ app_name = 'leagueApp'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('results/<str:league>/', views.results, name='results'),
-    path('standings/<str:league>/', views.standings, name='standings'),
-    path('top-scorers/<str:league>/', views.top_scorers, name='top_scorers'),
-    path('match/<int:match_id>/', views.match_detail, name='match_detail'),
+    path('clasificacion/', views.standings, name='clasificacion'),
+    path('goleadores/', views.top_scorers, name='goleadores'),
+    path('resultados/', views.results, name='resultados'),
 ]

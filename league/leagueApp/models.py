@@ -4,7 +4,10 @@ class Team(models.Model):
     name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     league = models.CharField(max_length=50)
-    
+    points = models.IntegerField(default=0)
+    goal_difference = models.IntegerField(default=0)
+    goals_for = models.IntegerField(default=0)
+
     def __str__(self):
         return self.name
 
@@ -14,6 +17,7 @@ class Player(models.Model):
     name = models.CharField(max_length=100)
     number = models.IntegerField()
     position = models.CharField(max_length=50)
+    goals = models.IntegerField(default=0)
     
     def __str__(self):
         return self.name
