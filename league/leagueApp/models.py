@@ -13,7 +13,7 @@ class Team(models.Model):
 
 
 class Player(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="players")
     name = models.CharField(max_length=100)
     number = models.IntegerField()
     position = models.CharField(max_length=50)
@@ -35,11 +35,47 @@ class Match(models.Model):
 
 
 class Event(models.Model):
-    match = models.ForeignKey(Match, on_delete=models.CASCADE)
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    event_type = models.CharField(max_length=50, default='goal')
-    time = models.TimeField()
+    class EventType(models.TextChoices):
+        GOL = "GOL"
+        AUTOGOL = "AUTOGOL"
+        FALTA = "FALTA"
+        PENALTY = "PENALTY"
+        MANS = "MANS"
+        CESSIO = "CESSIO"
+        FORA_DE_JOC = "FORA_DE_JOC"
+        ASSISTENCIA = "ASSISTENCIA"
+        TARGETA_GROGA = "TARGETA_GROGA"
+        TARGETA_VERMELLA = "TARGETA_VERMELLA"
     
-    def __str__(self):
-        return f'{self.event_type} - {self.player} ({self.team})'
+    match = models.ForeignKey(Match,on_delete=models.CASCADE)
+    time = models.TimeField()
+    event_type = models.CharField(max_length=30,choices=EventType.choices)
+    player = models.ForeignKey(Player,null=True,
+                    on_delete=models.SET_NULL,
+                    related_name="events_fets")
+    team = models.ForeignKey(Team,null=True,
+                    on_delete=models.SET_NULL)
+    
+    def save(self, *args, **kwargs):
+        super(Event, self).save(*args, **kwargs)
+        if self.event_type == 'GOL':
+            if self.team == self.match.home_team:
+                self.match.home_score += 1
+                self.match.save()
+            elif self.team == self.match.away_team:
+                self.match.away_score += 1
+                self.match.save()
+
+# class Event(models.Model):
+#     match = models.ForeignKey(Match, on_delete=models.CASCADE)
+#     player = models.ForeignKey(Player, on_delete=models.CASCADE)
+#     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+#     event_type = models.CharField(max_length=50, default='goal')
+#     time = models.TimeField()
+
+#     def __str__(self):
+#         if self.event_type == 'goal':
+#             return f'{self.time} - {self.player.name} ({self.team.name}) scored a goal in {self.match}'
+#         else:
+#             return f'{self.time} - {self.player.name} ({self.team.name}) {self.event_type} in {self.match}'
+
