@@ -2,6 +2,13 @@ from django.contrib import admin
 from django.db.models import Q
 from .models import *
 
+class LeagueAdmin(admin.ModelAdmin):
+    fields = ['name']
+    search_fields = ['name']
+    
+admin.site.register(League, LeagueAdmin)
+
+
 class PlayerInline(admin.TabularInline):
     model = Player
 
