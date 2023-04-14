@@ -9,8 +9,8 @@ class League(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    # league = models.ForeignKey(League, on_delete=models.CASCADE)
-    league = models.CharField(max_length=50)
+    league = models.ForeignKey(League, on_delete=models.CASCADE)
+    # league = models.CharField(max_length=50)
     points = models.IntegerField(default=0)
     goal_difference = models.IntegerField(default=0)
     goals_for = models.IntegerField(default=0)
