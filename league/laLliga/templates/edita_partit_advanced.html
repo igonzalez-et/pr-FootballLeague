@@ -1,0 +1,41 @@
+<h2>EDITA PARTIT</h2>
+<form method="post">
+    {% csrf_token %}
+    <select name="lliga" id="lliga">
+        <option value="" disabled selected>Selecciona una lliga</option>
+    </select>
+ 
+    <input type="submit" name="submit" id="submit" value="Edita partit">
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 
+<script>
+    $(document).ready(function(){
+        $.getJSON("api/get_lligues", function(data){
+            data.lligues.forEach(lliga => {
+                $("#lliga").append("<option value='"+lliga.id+"'>" + lliga.nom_lliga + "</option>");
+            })
+        });
+        $("#lliga").on("change", function(){
+            id = $("#lliga").val();
+            $.getJSON("api/get_equips/"+id, function(data){
+                $("#selectLocal").remove();
+                $("#selectVisitant").remove();
+                if(data.equips.length > 0) {
+                    $("#submit").before('<select name="equip" id="selectLocal"></select>');
+
+                    data.equips.forEach(equip => {
+                    $("#selectLocal").append("<option value='"+equip.id+"'>" + equip.nom_equip + "</option>");
+                    });
+
+                    $("#selectLocal").after('<select name="equip" id="selectVisitant"></select>');
+
+                    data.equips.forEach(equip => {
+                    $("#selectVisitant").append("<option value='"+equip.id+"'>" + equip.nom_equip + "</option>");
+                    });
+                }
+                
+            });
+        });
+    });
+</script>
