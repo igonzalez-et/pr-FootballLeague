@@ -1,0 +1,36 @@
+{
+  "status": "done",
+  "assets": {
+    "favicon.ico": {
+      "name": "favicon.ico",
+      "path": "/home/igonzalez/dev23/pr-FootballLeague/league/ui/dist/favicon.ico",
+      "publicPath": "http://0.0.0.0:8080/favicon.ico"
+    },
+    "index.html": {
+      "name": "index.html",
+      "path": "/home/igonzalez/dev23/pr-FootballLeague/league/ui/dist/index.html",
+      "publicPath": "http://0.0.0.0:8080/index.html"
+    },
+    "js/main.566de012.js": {
+      "name": "js/main.566de012.js",
+      "path": "/home/igonzalez/dev23/pr-FootballLeague/league/ui/dist/js/main.566de012.js",
+      "publicPath": "http://0.0.0.0:8080/js/main.566de012.js"
+    },
+    "js/main.566de012.js.map": {
+      "name": "js/main.566de012.js.map",
+      "path": "/home/igonzalez/dev23/pr-FootballLeague/league/ui/dist/js/main.566de012.js.map",
+      "publicPath": "http://0.0.0.0:8080/js/main.566de012.js.map"
+    },
+    "main.html": {
+      "name": "main.html",
+      "path": "/home/igonzalez/dev23/pr-FootballLeague/league/ui/dist/main.html",
+      "publicPath": "http://0.0.0.0:8080/main.html"
+    }
+  },
+  "chunks": {
+    "main": [
+      "js/main.566de012.js"
+    ]
+  },
+  "publicPath": "http://0.0.0.0:8080/"
+}

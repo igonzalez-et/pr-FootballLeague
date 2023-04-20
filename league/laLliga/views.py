@@ -4,13 +4,36 @@ from django.shortcuts import render
 from .models import *
 from django import forms
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.contrib import messages
+
+
+def index(request):
+    context = {}
+
+    return render(request, 'index.html', context)
+
      
+@login_required
+def profile(request):
+    return render(request,"registration/profile.html")
 
-# Create your views here.
-def index():
-    return HttpResponse("Hello, world. You're at the lliga index.")
 
 
+class CustomPasswordChangeView(PasswordChangeView):
+    template_name = 'registration/password_change.html'
+    success_url = reverse_lazy('password_change_done')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Tu contraseña ha sido cambiada con éxito.')
+        return response
+
+
+@login_required
 def classificacio(request,lliga_id=None):
     lliga = Lliga.objects.first()
     if lliga_id:
@@ -37,6 +60,7 @@ def classificacio(request,lliga_id=None):
 class TriarLligaForm(forms.Form):
     lliga = forms.ModelChoiceField(queryset=Lliga.objects.all())
     
+@login_required
 def menu(request):
     form = TriarLligaForm()
     if request.method == "POST":
